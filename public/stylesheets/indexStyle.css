@@ -1,0 +1,25 @@
+body {
+	background: #CEE3F6;
+	margin: 1em;
+}
+
+body .title, body .intro {
+	color: #FAAC58;
+}
+
+details {
+	background: #D8D8D8;
+}
+
+.barDay, .barArea {
+	margin-right: .5em;
+	margin-bottom: .25em;
+}
+
+#barFilterForm {
+	margin
+}
+
+.filter-list {
+  margin: 1em 1em 1em 1em;
+}

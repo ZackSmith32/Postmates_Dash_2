@@ -1,0 +1,5 @@
+node_modules
+/config/secret.js
+/config/passport.js
+ideas
+script.js

@@ -1,0 +1,42 @@
+{
+  "name": "slickgrid",
+  "version": "2.1.0",
+  "description": "A lightning fast JavaScript grid/spreadsheet",
+  "main": "slick.core.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shtylman/SlickGrid.git"
+  },
+  "keywords": [
+    "slickgrid",
+    "grid"
+  ],
+  "author": {
+    "name": "Michael Leibman",
+    "email": "michael.leibman@gmail.com"
+  },
+  "license": "MIT",
+  "_id": "slickgrid@2.1.0",
+  "dist": {
+    "shasum": "c822ee39330b25d6081f22478a2bce68d3f6b946",
+    "tarball": "https://registry.npmjs.org/slickgrid/-/slickgrid-2.1.0.tgz"
+  },
+  "_npmVersion": "1.1.66",
+  "_npmUser": {
+    "name": "shtylman",
+    "email": "shtylman@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "shtylman",
+      "email": "shtylman@gmail.com"
+    }
+  ],
+  "_shasum": "c822ee39330b25d6081f22478a2bce68d3f6b946",
+  "_resolved": "https://registry.npmjs.org/slickgrid/-/slickgrid-2.1.0.tgz",
+  "_from": "slickgrid@*"
+}

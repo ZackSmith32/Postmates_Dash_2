@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> AddData </title>
+    <script src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   
+      integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="
+      crossorigin="anonymous"></script>
+    <script src='/javascripts/bootstrap_js/bootstrap.min.js'></script>
+    <script src='/modules/moment.min.js'></script>
+
+    
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <link rel='stylesheet' href='//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="/stylesheets/bootstrap_css/bootstrap.css">
+    
+    <script src='/javascripts/main.js'></script>
+    <script type='text/javascript'>
+      var jobData = <%- JSON.stringify(jobData) %>
+    </script> 
+    <script type='text/javascript'>
+      var merchantDict = <%- JSON.stringify(merchantDict) %>
+    </script> 
+  
+
+  </head>
+
+  <body>
+    <div id='modal' title='New Merchant'></div>
+    
+    <% include templates/header.ejs %>
+    <div id='mainPage' class='container col-sm-offset-1 col-sm-10 col-xs-12'>
+      
+      <h1><%= title %></h1>
+      <h5>Enter delivery data</h5>
+
+      
+
+      
+      <div class="panel panel-default container-fluid">
+        <div class="panel-heading">
+          <h5 class="panel-title"> 
+            <a href="#directions" data-toggle='collapse'>Directions</a>
+          </h5>
+          <span>(click to open)</span>
+        </div>
+        
+        <div id='directions' class="collapse panel-collapse">
+          <div class="panel-body ">
+            <p>Jobs entered below will be saved for the specified shift.  Once entered all jobs for the shift you are working on are displayed in the table at the bottom of the page.  If you make a mistake click delete in the table and re-enter the job.  When you are ready to start a new shift click the 'New Shift' button!</p>
+            <div class='well well-sm'>
+              <p>Job - each delivery is called a job</p>
+              <p>Shift - a shift is all the deliveries you do in one outing.</p>  
+            </div>
+            
+            
+          </div>
+        </div>  
+      </div>
+            
+      <div class="container-fluid">
+        <form action='/addData' method='post' id='shiftData'>
+          <input hidden type='number' name='firstShiftNumber' value=<%= shiftNumber %>  >
+          <div>
+            
+            <input type='submit' value='New Shift' name='newShiftSubmit' class='btn btn-default'>
+          </div>
+        </form>
+      </div>
+      
+
+      
+      
+      <div class="panel panel-default container-fluid">
+        <div class="panel-heading">
+          <h5>Job Data Input for Shift <%= shiftNumber %></h5>
+        </div>
+        <div class="panel-body">
+        <form action='/addData' method='post' id='jobData'>
+      
+          <input hidden type='number' name='jobShiftNumber' value=<%= shiftNumber %>>
+
+          <div class='jobData' hidden>
+            <input type='text' name='jobCategory' id='jobCategory'><input>
+          </div>
+
+          <!--<div class='shiftData'>
+            <h3>Total miles driven</h3>
+            <input type='number' name='shiftMiles' class='shiftData' min='1'><br>
+          </div> -->
+
+          <div class="form-group row">
+            <label class='col-sm-2 checkbox'>Test</label>
+            <div class='col-sm-10'>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id='jobTest' name='jobTest'>This job is not an actual job.
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="jobMerchant" class="col-xs-2 form-control-label">Merchant</label>
+            <div class="col-xs-8 ">
+              <input type="text" class="form-control" id='jobMerchant' placeholder='Merchant' name='jobMerchant'>
+            </div>
+          </div>         
+          
+          <div class="form-group row">
+            <label for="jobPayout" class='col-xs-2 form-control-label'>Payout</label>
+            <div class='col-xs-8'>
+              <input type='number' id='jobPayout' class='form-control' step='0.01' placeholder='Payout' name='jobPayout'>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="jobTip" class='col-xs-2 form-control-label'>Tip</label>
+            <div class="col-xs-2">
+              <input type="checkbox" id="pending" name='jobTipPending'>
+              <span>Pending?</span>
+            </div>
+            <div class='col-xs-6'>
+              <input type='number' id='jobTip' class='form-control' step='0.01' placeholder='Tip' name='jobTip'>
+            </div>
+          </div>   
+
+          <div class="form-group row">
+            <label for="jobMultiplier" class='col-xs-2 form-control-label'>Multiplier</label>
+            <div class='col-xs-8'>
+              <label class='radio-inline'>
+                <input type='radio' name="jobMultiplier" id="inlineRadio1" value=1 checked='checked'>1.0
+              </label>
+              <label class='radio-inline'>
+               <input type='radio' name="jobMultiplier" id="inlineRadio2" value=1.25>1.25
+              </label>
+              <label class='radio-inline'>
+                <input type='radio' name="jobMultiplier" id="inlineRadio3" value=1.5>1.5
+              </label>
+            </div>
+          </div>          
+
+          <div class="form-group row">
+            <label for="jobStart" class='col-xs-2 form-control-label'>Start Time</label>
+            <div class='col-xs-8'>
+              <input type='datetime-local' id='jobStart' class='form-control' name='jobStart'>
+            </div>
+          </div> 
+   
+          <div class="form-group row">
+            <label for="jobEnd" class='col-xs-2 form-control-label'>End Time</label>
+            <div class='col-xs-8'>
+              <input type='datetime-local' id='jobEnd' class='form-control' name='jobEnd'>
+            </div>
+          </div> 
+
+          <div class="form-group row">
+            <label for="jobCancel" class='col-xs-2 checkbox'>Canceled</label>
+            <div class='col-sm-10'>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id='jobCancel' name='jobCancel'>This job was canceled
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class='col-xs-2 checkbox'>Promotion</label>
+            <div class='col-sm-10'>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id='jobPromotion' name='jobPromotion'>This job was a Postmates promotional job
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-xs-2 ">
+              <button type="submit" class="btn btn-secondary" id='jobSubmit'>Submit</button>
+            </div>
+          </div>
+  
+        </form>
+      </div>
+      </div>
+      
+        <div id='addedJobs' class='panel panel-default container-fluid'>
+          <div class="panel-heading">
+            <h3 class="panel-title"> Current Shift Number <%= shiftNumber %></h3>
+          </div>
+          <div class="panel-body">
+            <table class='table'>
+              <tbody>
+                <tr>
+                  <th>Date</th>         
+                  <th>Merchant</th>
+                  <th>Payout</th>
+                  <th>Tip</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Delete</th>
+                </tr>
+              </tbody>
+            </table>  
+          </div> 
+        </div>
+    </div>
+  </body>
+</html>

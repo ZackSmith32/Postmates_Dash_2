@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" 
+      src="https://www.gstatic.com/charts/loader.js">
+    </script>
+    <script src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- <script src='/javascripts/bootstrap_js/bootstrap.min.js'></script> -->
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'></script>
+    <script src='/modules/moment.min.js'></script> 
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap_css/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/dashboardStyle.css">
+    
+    
+    <script type='text/javascript'>
+      var allJobs = <%- JSON.stringify(allJobs) %>
+    </script>
+  
+    <script type="text/javascript" src='/javascripts/dashboard_client.js'></script>
+
+  </head>
+  <body>
+    <% include templates/header.ejs %>  
+    <div id='mainPage' class="container col-sm-offset-1 col-sm-10">
+
+      <h1>Dashboard</h1>
+      <h5>Optimize your performance</h5>
+      
+      <div class="row container-fluid">
+        <div class="panel panel-default col-sm-4 hrlyRt text-xs-center">
+            <h4 class='panel-heading'>Hourly Rate</h4>
+        </div>
+        <div class="panel panel-default col-sm-4 jobCount text-xs-center">
+          <h4 class="panel-heading">Total Job Count</h4>     
+        </div>
+        <div class="panel panel-default col-sm-4 totalEarnings text-xs-center">
+          <h4 class="panel-heading">Total Earnings</h4>     
+        </div>
+      </div>
+
+      <div class="container-fluid panel panel-default" style = "height: 450px;">
+          <!-- mess with this so title has gray background -->
+          <h3 class="panel-heading">Daily Earnings</h3>
+        <div>
+          <label name = "len" class = "radio-inline">
+            <input type="radio" class = "earnings" name = "earnings" value = 7 checked>Last 7 Days
+          </label>
+          <label name = "len" class = "radio-inline">
+            <input type="radio" class = "earnings" name = "earnings" value = 31>Last 30 Days
+          </label>
+          <label name = "len" class = "radio-inline">
+            <input type="radio" class = "earnings" name = "earnings" value = 1000>All
+          </label>
+        </div>
+        <div id="chart_div"></div>
+      </div>
+      
+      <div class="container-fluid panel panel-default" style = "height: 450px">
+        <div id="merchant_control"></div>
+        <div id="merchantTable"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
