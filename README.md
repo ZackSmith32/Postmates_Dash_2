@@ -6,7 +6,6 @@ Optimize your driving for Postmates
 (feel free to add data and make changes):
 
 username: johnny@test.com
-
 password: 1234
 
 
