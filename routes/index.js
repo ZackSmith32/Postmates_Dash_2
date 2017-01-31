@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var secret = require('../config/secret');
+var secret_key = process.env.SECRET_KEY;
 var Users = require('../models/users');
 var jwt = require('jsonwebtoken');
 var flash = require('connect-flash');
@@ -32,14 +32,25 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', function(req, res, next) {
-	// console.log('in /login');
 	if (!req.body.email)
 		res.render( 'login.ejs', {message: 'please fill out email'});
 	if (!req.body.password)
 		res.render( 'login.ejs', {message: 'please fill out password'});
-	var token = jwt.sign({ email: req.body.email }, secret.secret);
-	res.cookie('JWT', token);
-	res.redirect('/dashboard');
+	Users.findOne({email: req.body.email}, function(err, user) {
+		if (err)
+			next(err);
+		if (!user)
+			res.render( 'login.ejs', {message: 'this user does not exit'});
+		user.comparePassword( req.body.password, function(err, isMatch) {
+			if (!isMatch) {
+				res.render( 'login.ejs', {message: 'password does not match'})				
+			} else {
+				var token = jwt.sign({ email: req.body.email }, secret_key);
+				res.cookie('JWT', token);
+				res.redirect('/dashboard');
+			}
+		})
+	})
 });
 
 
@@ -92,7 +103,7 @@ router.post('/signup/reg', function(req, res) {
 					// expires in option
 					var token = jwt.sign(
 						{ email: newUser.email}, 
-						secret.secret
+						secret_key
 					);
 					console.log("sending cookie"); 
 					// res.json({message: "ok", token: token});

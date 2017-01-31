@@ -3,7 +3,7 @@ var passportJwt = require("passport-jwt");
 var ExtractJwt = passportJwt.ExtractJwt;
 var JwtStrategy = passportJwt.Strategy;
 var Users = require("../models/users.js");
-var secret = require("./secret.js");
+var secret_key = process.env.SECRET_KEY;
 
 var cookieExtractor = function(req) {
 	// console.log("cookieExtractor:", req.cookies);
@@ -18,7 +18,7 @@ var cookieExtractor = function(req) {
 
 var jwtOptions = {}
 jwtOptions.jwtFromRequest = cookieExtractor;
-jwtOptions.secretOrKey = secret.secret;
+jwtOptions.secretOrKey = secret_key;
 
 module.exports = (function( passport ) {
 	

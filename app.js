@@ -8,12 +8,13 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
-var secret = require('./config/secret.js');
+var secret_key = process.env.SECRET_KEY;
+var mongo_connection = process.env.MONGO_LOGIN;
 
 var app = express();
 
 // connect to database
-mongoose.connect(secret.database, function(err) {
+mongoose.connect(mongo_connection, function(err) {
   if(err) {
     console.log('connection error', err);
   } else {

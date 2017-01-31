@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var Jobs = require('../models/jobs.js')
 var passport = require('passport');
-var secret = require('../config/secret');
 var Users = require('../models/users');
 var jwt = require('jsonwebtoken');
 
