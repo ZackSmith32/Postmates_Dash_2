@@ -15,7 +15,8 @@ router.get('/', jwtAuth, function(req, res, next) {
 		.then(function(allJobs) {
 			//console.log(allJobs)
 			res.render('jobList', {
-				allJobs: allJobs
+				allJobs: allJobs, 
+				title: 'jobList'
 			})
 		}).catch(function(error) {console.log(error)})
 });

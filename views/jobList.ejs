@@ -14,6 +14,18 @@
     <script type="text/javascript" src='/javascripts/jobList_client.js'></script>
     <script type='text/javascript'>
       var allJobs = <%- JSON.stringify(allJobs) %>
+      var title = <%- JSON.stringify(title) %>
+      $(document).ready(function() {
+        if (title == 'dashboard') {
+          $('#dashboard').addClass('active');
+        }
+        if (title == 'jobList') {
+          $('#jobList').addClass('active');
+        }
+        if (title == 'addData') {
+          $('#addData').addClass('active');
+        }
+      })
     </script> 
     
   </head>

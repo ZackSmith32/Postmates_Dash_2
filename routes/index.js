@@ -18,15 +18,6 @@ router.get('/', jwtAuth, function(req, res, next) {
 	res.redirect('/login');
 })
 
-router.get('/secret', function(req, res, next){
-	console.log('cooks:', req.cookies);
-	next();
-});
-
-router.get('/secret', jwtAuth, function(req, res){
-  res.json({message: "Success! You can not see this without a token"});
-});
-
 router.get('/login', function(req, res) {
 	res.render('login.ejs', {message: ''});
 });

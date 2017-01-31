@@ -7,17 +7,12 @@ var lastDay = allJobs[allJobsLen - 1]['jobStart'];
 
 // parse JSON data for chart
 var dateArray = assessDates(allJobs)
-console.log('date array', dateArray);
 var jobsByDay = dateArray.map(filterJobs)
-console.log('jobsByDay', jobsByDay);
 var totalByDay = jobsByDay.map(sumJobs)
 var chartData = addDate(dateArray, totalByDay)
 chartData.unshift(['Date', 'Payout', 'Tips'])
-console.log(chartData[0]);
-console.log( 'char data', chartData);
 
 // functions for parsing data for chart
-
 function assessDates(allJobs) {
   	var activeDate = []
   	var uniqueActiveDate = []
@@ -183,42 +178,20 @@ var merchantData = merchantData(allJobs)
 
 // ___________ load merchant chart ___________
 
-// google.charts.load('current', {'packages':['corechart', 'controls']});
-// google.charts.setOnLoadCallback(drawStuff);
-
 function drawMerchantChart() {
 	
   var merchantTable = new google.visualization.Table(
     document.getElementById('merchantTable'));
 
-  //We omit "var" so that programmaticSlider is visible to changeRange.
- //  merchantSelect = new google.visualization.ControlWrapper({
- //    'controlType': 'CategoryFilter',
- //    'containerId': 'merchant_control',
- //    'options': {
- //      'filterColumnLabel': 'Merchant',
- //      'ui': {'labelStacking': 'vertical'}
- //    }
- //  });
-
- //  merchantChart  = new google.visualization.ChartWrapper({
- //    'chartType': 'BarChart',
- //    'containerId': 'merchant_chart',
- //    'options': {
- //      'width': '90%',
- //      'height': 300,
- //      //'isStacked': true,
- //      },
- //    'chartArea': {'left': 50, 'top': 15, 'right': 125, 'bottom': 25}
-  // });
   var options = {
-      'width': '80%',
-      'height': 380,
+      'width': '100%',
+      'height': '350px',
       'animation': {
         'duration': 750,
         'startup': true
       },
-      'chartArea': {'left': 50, 'top': 100, 'right': 50, 'bottom': 45},
+   
+      // 'chartArea': {'left': 50, 'top': 100, 'right': 50, 'bottom': 45},
       'cssClassNames': {headerCell: 'googleHeaderCell'}
     };
 
@@ -309,78 +282,5 @@ $special = $event.special.throttledresize = {
 };
 
 })(jQuery);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ___________ old functions ____________
-
-// function getDates (firstDay) {
-// 	var endDay = moment()
-// 	var startDay = moment(firstDay)
-// 	var dateArray = []
-	
-// 	// need to add a filter for if first shift is in this day, then all
-// 	// jobs from that shift are on this day... maybee
-// 	while (startDay < endDay) {
-// 		dateArray.push(moment(startDay))
-// 		startDay = startDay.add(1, 'd')
-// 	}
-// 	return dateArray
-// }
-
-
-
-
 
 

@@ -30,7 +30,7 @@ router.get('/', jwtAuth, function(req, res, next) {
 			.then(function(result) {
 				res.render(
 					'addData', { 
-			        title: 'Add Data', 
+			        title: 'addData', 
 			       	shiftNumber: result[0],
 			       	jobData: result[1],
 			       	merchantDict: parsedOutput
