@@ -43,4 +43,6 @@ input[name='barReview'] {
 	height: 5em;
 }
 
-
+.page-title {
+  color: green;
+}
