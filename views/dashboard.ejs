@@ -18,7 +18,10 @@
     <script type='text/javascript'>
       var allJobs = <%- JSON.stringify(allJobs) %>
       var title = <%- JSON.stringify(title) %>
+      var user = <%- JSON.stringify(email) %>
+      console.log(user);
       $(document).ready(function() {
+        // set active header
         if (title == 'dashboard') {
           $('#dashboard').addClass('active');
         }
@@ -28,6 +31,7 @@
         if (title == 'addData') {
           $('#addData').addClass('active');
         }
+        $('.navbar-right').prepend('<li><a href="#">' + user + '</a></li>')
       })
     </script>
     <script type="text/javascript" src='/javascripts/dashboard_client.js'></script>

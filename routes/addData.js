@@ -33,7 +33,8 @@ router.get('/', jwtAuth, function(req, res, next) {
 			        title: 'addData', 
 			       	shiftNumber: result[0],
 			       	jobData: result[1],
-			       	merchantDict: parsedOutput
+			       	merchantDict: parsedOutput,
+			       	email: user_email
 		    	}
 		    )
 			})

@@ -19,7 +19,7 @@ function assessDates(allJobs) {
   	for(var i = 0; i < allJobs.length; i++) {
   		activeDate.push(moment(allJobs[i]['jobStart'], 'YYYY-MM-DD'))
   	}
-    console.log('assess dates: activeDate:', activeDate);
+    // console.log('assess dates: activeDate:', activeDate);
 
   	for(var j = 0; j < activeDate.length; j++) {
   		if(+activeDate[j] !== +activeDate[j - 1]) {
@@ -68,7 +68,7 @@ function addDate(dateArray, dataArray) {
 
 // Hrly rt
 $(function() {
-    console.log(allJobs);
+    // console.log(allJobs);
     var earnings = 0
     var workTime = 0
     var jobCount;

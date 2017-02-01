@@ -23,24 +23,28 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', function(req, res, next) {
-	if (!req.body.email)
-		res.render( 'login.ejs', {message: 'please fill out email'});
-	if (!req.body.password)
-		res.render( 'login.ejs', {message: 'please fill out password'});
+	if (!req.body.email) {
+		res.render( 'login.ejs', {message: 'Please fill out email'});
+	}
+	if (!req.body.password) {
+		res.render( 'login.ejs', {message: 'Please fill out password'});
+	}
 	Users.findOne({email: req.body.email}, function(err, user) {
 		if (err)
 			next(err);
-		if (!user)
-			res.render( 'login.ejs', {message: 'this user does not exit'});
-		user.comparePassword( req.body.password, function(err, isMatch) {
-			if (!isMatch) {
-				res.render( 'login.ejs', {message: 'password does not match'})				
-			} else {
-				var token = jwt.sign({ email: req.body.email }, secret_key);
-				res.cookie('JWT', token);
-				res.redirect('/dashboard');
-			}
-		})
+		if (!user) {
+			res.render( 'login.ejs', {message: 'This user does not exit'});
+		} else {
+			user.comparePassword( req.body.password, function(err, isMatch) {
+				if (!isMatch) {
+					res.render( 'login.ejs', {message: 'Password does not match'})				
+				} else {
+					var token = jwt.sign({ email: req.body.email }, secret_key);
+					res.cookie('JWT', token);
+					res.redirect('/dashboard');
+				}
+			})
+		}
 	})
 });
 

@@ -3,10 +3,19 @@
   <body>
     <div class="col-sm-8 col-sm-offset-2">
       <div class="jumbotron text-center">
-        <h1><span class="fa fa-sign-in"></span> Login</h1>
+        <h1>Login</h1>
+        <div class="panel panel-default" style='width: 50%, margin=25%'>
+          <div class="panel-heading" >Try it out with data, use this login:</div>
+          <div class="panel-body">
+              email: johnny@test.com
+              <br>
+              password: 1234
+          </div>
+        </div>
 
         <% if (message != null) { %>
         	<div class="alert-danger"><%= message %></div>
+          <br>
         <% } %>
 
         <form action="/login" method="post">

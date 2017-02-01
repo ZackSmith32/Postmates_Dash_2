@@ -16,21 +16,27 @@ router.get('/', jwtAuth, function(req, res, next) {
 			//console.log(allJobs)
 			res.render('jobList', {
 				allJobs: allJobs, 
-				title: 'jobList'
+				title: 'jobList',
+				email: user_email
 			})
 		}).catch(function(error) {console.log(error)})
 });
 
-router.get('/', jwtAuth, function(req, res, next) {
+router.post('/', jwtAuth, function(req, res, next) {
+	console.log('Hello?')
+	console.log(req.body)
 	Jobs.update(
-		{_id: req[0]},
+		{_id: req.body.id},
 		{$set: {
-			jobPayout: req[1],
-			jobTip: req[2]
+			jobPayout: req.body.jobPayout,
+			jobTip: req.body.jobTip
 		}},
-		function(err) {
-			if (err) {return console.log(err)}
-			return 'success'
+		function(err, job) {
+			if (err) {
+				console.log(err)
+				next(err) 
+			}
+			console.log(job);
 		}
 	)
 	res.send('success')

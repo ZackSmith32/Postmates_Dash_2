@@ -48,6 +48,7 @@ $(function() {
 				  "<td contenteditable='true'>" + job.jobPayout.toFixed(2) + "</td>"+
 				  "<td contenteditable='true'>" + job.jobTip.toFixed(2) + "</td>"+
 				  "<td><button type='button' disabled='true'>Save</button></td>"+
+				  "<td><span class='glyphicon glyphicon-ok success hidden'></span></td>" +
 				"</tr>"
 			)
 		})	
@@ -61,14 +62,30 @@ $(function() {
   });
 
   $('button').click(function () {
-	  var contents = $(this).parent().parent().find('td[contenteditable=true]');
-	  var contentArray = [];
-	  for (i = 0; i < contents.length; i++) {
-	    contentArray[i] = contents[i].innerHTML;
-	  }
-	  contentArray.unshift($(this).parent().parent().attr('id'))
-	  console.log(contentArray)
-	  $.post("/jobList", contentArray);
+  		console.log('button click');
+		var contents = $(this).parent().parent().find('td[contenteditable=true]');
+		var contentArray = [];
+		for (i = 0; i < contents.length; i++) {
+			contentArray[i] = Number(contents[i].innerHTML);
+		}
+		contentArray.unshift($(this).parent().parent().attr('id'))
+		console.log(contentArray)
+		$.ajax({
+			type: 'POST',
+			url: '/jobList/',
+			data: {
+				id : contentArray[0],
+				jobPayout: contentArray[1],
+				jobTip: contentArray[2]
+			},
+			success: function(res) {
+			    // $.alert('success', 'Job was updated');
+			},
+			error: function(err) {
+			    //$alert.trigger('error', error);
+			    console.log(err)
+			}
+		})
    });
 
 	// figure out the highest shift number

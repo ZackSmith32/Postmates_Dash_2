@@ -21,6 +21,7 @@
       var jobData = <%- JSON.stringify(jobData) %>
       var merchantDict = <%- JSON.stringify(merchantDict) %>
       var title = <%- JSON.stringify(title) %>
+      var user = <%- JSON.stringify(email) %>
       $(document).ready(function() {
         if (title == 'dashboard') {
           $('#dashboard').addClass('active');
@@ -31,6 +32,7 @@
         if (title == 'addData') {
           $('#addData').addClass('active');
         }
+        $('.navbar-right').prepend('<li><a href="#">' + user + '</a></li>')
       })
     </script> 
   
