@@ -23,8 +23,7 @@ router.get('/', jwtAuth, function(req, res, next) {
 });
 
 router.post('/', jwtAuth, function(req, res, next) {
-	console.log('Hello?')
-	console.log(req.body)
+	// console.log(req.body)
 	Jobs.update(
 		{_id: req.body.id},
 		{$set: {
@@ -36,10 +35,10 @@ router.post('/', jwtAuth, function(req, res, next) {
 				console.log(err)
 				next(err) 
 			}
-			console.log(job);
+			console.log(job._id);
+			res.send(job._id);
 		}
 	)
-	res.send('success')
 });
 
 function allJobs(user_email) {

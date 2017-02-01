@@ -29,6 +29,7 @@ $(function() {
 					      "<th>Payout</th>"+
 					      "<th>Tip</th>"+
 					      "<th>Save</th>"+
+					      "<th></th>"+					      
 					    "</tr>"+
 					  "</thead>"+
 					  "<tbody>"+
@@ -48,7 +49,7 @@ $(function() {
 				  "<td contenteditable='true'>" + job.jobPayout.toFixed(2) + "</td>"+
 				  "<td contenteditable='true'>" + job.jobTip.toFixed(2) + "</td>"+
 				  "<td><button type='button' disabled='true'>Save</button></td>"+
-				  "<td><span class='glyphicon glyphicon-ok success hidden'></span></td>" +
+				  "<td class='glyph'><span class='glyphicon glyphicon-ok text-success hidden'></span></td>" +
 				"</tr>"
 			)
 		})	
@@ -79,7 +80,9 @@ $(function() {
 				jobTip: contentArray[2]
 			},
 			success: function(res) {
-			    // $.alert('success', 'Job was updated');
+				console.log(contentArray);
+				$('#' + String(contentArray[0])).find('span').removeClass('hidden');
+				//append("<td><span class='glyphicon glyphicon-ok text-success'></span></td>")
 			},
 			error: function(err) {
 			    //$alert.trigger('error', error);
