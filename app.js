@@ -27,6 +27,7 @@ var index = require('./routes/index');
 var addData = require('./routes/addData');
 var dashboard = require('./routes/dashboard');
 var jobList = require('./routes/jobList');
+var Oauth = require('./routes/Oauth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,6 +47,10 @@ var Users = require("./models/users.js");
 
 // require the strategy that will process the jwt's
 require('./config/passport_jwt2')(passport);
+require('./config/fb_strategy')(passport);
+
+// var facebook = require('./config/fb_strategy');
+// passport.use(facebook);
 app.use(passport.initialize());
 
 // designate which routes file to use for different reqs
@@ -53,6 +58,7 @@ app.use('/', index);
 app.use('/addData', addData);
 app.use('/dashboard', dashboard);
 app.use('/jobList', jobList);
+app.use('/auth', Oauth);
 
 
 // catch 404 and forward to error handler

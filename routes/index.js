@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var secret_key = process.env.SECRET_KEY;
-var Users = require('../models/users');
 var jwt = require('jsonwebtoken');
+var Users = require('../models/users');
 var flash = require('connect-flash');
+
+console.log(secret_key);
 
 var jwtAuth = passport.authenticate('jwt', { session: false });
 

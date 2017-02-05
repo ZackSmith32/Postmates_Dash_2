@@ -6,23 +6,28 @@ var userSchema = mongoose.Schema({
 		type: String,
 		lowercase: true,
 		unique: true,
-		required: true
 	},
-	password: {
-		type: String,
-		required: true
+	password: String,
+	facebook: {
+		id: String, 
+		token: String,
+		first_name: String,
+		last_name: String
 	},
 	market: String,
 	name: String,
 	admin: {
 		type: Boolean,
 		default: false
-	}
+	}, 
+	token: String
 });
 
 // generate a hash
 userSchema.pre('save', function(next) {
 	var user = this;
+	if (!this.password)
+		return next();
 	if (this.isModified('password') || this.isNew) {
 		bcrypt.genSalt(10, function (err, salt) {
 			if (err) {
