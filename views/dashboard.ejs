@@ -8,7 +8,8 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <!-- <script src='/javascripts/bootstrap_js/bootstrap.min.js'></script> -->
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'></script>
-    <script src='/modules/moment.min.js'></script> 
+    <script src='/modules/moment.min.js'></script>
+    <script src="http://d3js.org/d3.v3.js"></script>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/stylesheets/bootstrap_css/bootstrap.css">
@@ -35,6 +36,7 @@
       })
     </script>
     <script type="text/javascript" src='/javascripts/dashboard_client.js'></script>
+    <script type="text/javascript" src='/javascripts/heat_map.js'></script>
 
   </head>
   <body>
@@ -77,6 +79,8 @@
         <h3 class="panel-heading">Jobs Grouped by Merchant</h3>
         <div id="merchantTable"></div>
       </div>
+      <div class="container-fluid panel panel-default"></div>
+      <div class="dataset-picker"></div>
     </div>
 
   </body>
