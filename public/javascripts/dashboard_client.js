@@ -227,6 +227,7 @@ function drawMerchantChart() {
   // this redraws chart on window resize function is defined @ bottom
   $(window).on('throttledresize', function(event) {
     merchantTable.draw(merchantView, options);
+    heat_map(heat_data);
   });
 }
 

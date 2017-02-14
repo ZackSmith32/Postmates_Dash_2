@@ -5,7 +5,7 @@ var margin = { top: 50, right: 20, bottom: 100, left: 50 },
     gridSize = Math.floor(width / 24),
     legendElementWidth = gridSize*2,
     buckets = 9,
-    colors = ["#f5f5f5","#dcf4dc","#ace2ac","#6ac16a","#92e592","#4ed84e","#0dc10d","#00b200","#008000"], // alternatively colorbrewer.YlGnBu[9]
+    colors = ["#f5f5f5","#ccffcc","#99ff99","#00ff00","#00cc00","#009900","#008000"], // alternatively colorbrewer.YlGnBu[9]
     days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
     times = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p", "12p"];
     datasets = ["data.tsv", "data2.tsv"];
@@ -38,7 +38,7 @@ var margin = { top: 50, right: 20, bottom: 100, left: 50 },
 
     var heatmapChart = function(data) {
           var colorScale = d3.scale.quantile()
-              .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
+              .domain([0, buckets - 1, d3.max(data, function (d) { return d.rate; })])
               .range(colors);
 
           var cards = svg.selectAll(".hour")
@@ -57,9 +57,9 @@ var margin = { top: 50, right: 20, bottom: 100, left: 50 },
               .style("fill", colors[0]);
 
           cards.transition().duration(1000)
-              .style("fill", function(d) { return colorScale(d.value); });
+              .style("fill", function(d) { return colorScale(d.rate); });
 
-          cards.select("title").text(function(d) { return d.value; });
+          cards.select("title").text(function(d) { return d.rate; });
           
           cards.exit().remove();
 

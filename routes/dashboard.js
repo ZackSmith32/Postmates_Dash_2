@@ -77,7 +77,7 @@ function heat_data(data) {
 				var total = payout + tips;
 				var rate = hours ? total / hours : 0;
 				temp.day = day + 1;
-				temp.hour = hour;
+				temp.hour = hour + 1;
 				temp.payout = payout;
 				temp.tips = tips;
 				temp.time = hours;
