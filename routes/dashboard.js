@@ -22,12 +22,16 @@ router.get('/', jwtAuth, function(req, res, next) {
 	}
 	allJobs(user)
 		.then(function(result) {return heat_data(result)})
-		.then(function(allJobs) {
-			console.log(user);
+		.then(function(result) {
+			allJobs_return = result[0];
+			heat_data_json = result[1];
+			// console.log('heat_data', heat_data_json);
+			// console.log('allJobs', allJobs_return);
 			res.render('dashboard', { 
-				allJobs: allJobs, 
+				allJobs: allJobs_return, 
 				title: 'dashboard',
-				email: user
+				email: user,
+				heat_data: heat_data_json
 			})
 		}).catch(function(error) {console.log('route', error)})
 })
@@ -48,31 +52,44 @@ function allJobs(user) {
 
 function heat_data(data) {
 	console.log('in heat format func');
-	var heat_data = [['day', 'time', 'payout', 'tips', 'total', 'time', 'rate']]
+	var heat_data_json = []
+	// var heat_data = [['day', 'time', 'payout', 'tips', 'total', 'time', 'rate', 'count']]
 	return new Promise( function(resolve, reject) {
-		for (var day = 1; day <= 7; day++) {
-			for (var time = 1; time <= 24; time++) {
+		for (var day = 0; day < 7; day++) {
+			for (var hour = 0; hour < 24; hour++) {
+				var temp = {};
 				var filtered = data.filter(function(job) {
-					// console.log(job.jobStart.getDay())
-					return 	job.jobStart.getDay() == day &&
-							job.jobStart.getHours() == time
+					// console.log('hour:', job.jobStart.getUTCHours(), 'day:', job.jobStart.getDay())
+					return 	(	job.jobStart.getDay() == day &&
+								job.jobStart.getUTCHours() == hour)
 				})
+				if (day == 7){
+					console.log('filtered:', filtered);
+				}
 				var payout = 0;
 				var tips = 0;
-				var time = 0;
-				for (job of filtered) {
-					tips += job.jobTip;
-					payout += job.payout;
-					time += job.jobLengthHours;
+				var hours = 0;
+				for (var i = 0; i < filtered.length; i++) {
+					payout += filtered[i].jobPayout;
+					tips += filtered[i].jobTip;
+					hours += filtered[i].jobLengthHours;
 				}
 				var total = payout + tips;
-				var rate = total / time;
-				console.log(filtered);
-				heat_data.push([day, time, 0, tips, payout + tips, time, rate]);
+				var rate = hours ? total / hours : 0;
+				temp.day = day + 1;
+				temp.hour = hour;
+				temp.payout = payout;
+				temp.tips = tips;
+				temp.time = hours;
+				temp.value = total;
+				temp.rate = rate;
+				temp.count = i;
+				heat_data_json.push(temp);
 			}
 		}
-		console.log('heat data', heat_data)
-		resolve(heat_data);
+
+		// console.log('json data:', heat_data_json);
+		resolve([data, heat_data_json]);
 	})
 }
 

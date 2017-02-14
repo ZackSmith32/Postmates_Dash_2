@@ -18,6 +18,7 @@
     
     <script type='text/javascript'>
       var allJobs = <%- JSON.stringify(allJobs) %>
+      var heat_data = <%- JSON.stringify(heat_data) %>
       var title = <%- JSON.stringify(title) %>
       var user = <%- JSON.stringify(email) %>
       console.log(user);
@@ -36,7 +37,6 @@
       })
     </script>
     <script type="text/javascript" src='/javascripts/dashboard_client.js'></script>
-    <script type="text/javascript" src='/javascripts/heat_map.js'></script>
 
   </head>
   <body>
@@ -79,9 +79,13 @@
         <h3 class="panel-heading">Jobs Grouped by Merchant</h3>
         <div id="merchantTable"></div>
       </div>
-      <div class="container-fluid panel panel-default"></div>
-      <div class="dataset-picker"></div>
+      <div class="container-fluid panel panel-default">
+        <h3 class="panel-heading">Best Times to Drive</h3>
+        <div id="chart"></div>
+        <div id="dataset-picker"></div>
+      </div>
     </div>
-
+    
+    <script type="text/javascript" src='/javascripts/heat_map.js'></script>
   </body>
 </html>
