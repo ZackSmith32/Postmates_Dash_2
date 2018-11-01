@@ -1,20 +1,22 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan'); // logs get requests and shit in terminal
-var cookieParser = require('cookie-parser');
-var fs = require('fs');
-// bodyParser is middleware that lets you parse a request ".body."
-var bodyParser = require('body-parser');
-var jwt = require('jsonwebtoken');
-var mongoose = require('mongoose');
-var secret_key = process.env.SECRET_KEY;
-var mongo_connection = process.env.MONGO_LOGIN;
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import logger from 'morgan'; // logs get requests and shit in terminal
+import cookieParser from 'cookie-parser';
+import fs from 'fs';
 
-var app = express();
+// bodyParser is middleware that lets you parse a request ".body."
+import bodyParser from 'body-parser';
+
+import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
+const secret_key = process.env.SECRET_KEY;
+const mongo_connection = process.env.MONGO_LOGIN;
+
+const app = express();
 
 // connect to database
-mongoose.connect(mongo_connection, function(err) {
+mongoose.connect(mongo_connection, err => {
   if(err) {
     console.log('connection error', err);
   } else {
@@ -23,11 +25,12 @@ mongoose.connect(mongo_connection, function(err) {
 });
 
 // these variables contain the path for each route
-var index = require('./routes/index');
-var addData = require('./routes/addData');
-var dashboard = require('./routes/dashboard');
-var jobList = require('./routes/jobList');
-var Oauth = require('./routes/Oauth');
+import index from './routes/index';
+
+import addData from './routes/addData';
+import dashboard from './routes/dashboard';
+import jobList from './routes/jobList';
+import Oauth from './routes/Oauth';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,11 +42,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // modules for jwt authorization
-var passport = require("passport");
-var passportJwt = require("passport-jwt");
-var ExtractJwt = passportJwt.ExtractJwt;
-var JwtStrategy = passportJwt.Strategy;
-var Users = require("./models/users.js");
+import passport from "passport";
+
+import passportJwt from "passport-jwt";
+const ExtractJwt = passportJwt.ExtractJwt;
+const JwtStrategy = passportJwt.Strategy;
+import Users from "./models/users.js";
 
 // require the strategy that will process the jwt's
 require('./config/passport_jwt2')(passport);
@@ -62,8 +66,8 @@ app.use('/auth', Oauth);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -72,7 +76,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -83,7 +87,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -91,6 +95,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+export default app;
 
 
